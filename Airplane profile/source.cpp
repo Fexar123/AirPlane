@@ -1,3 +1,5 @@
+//тут разработана алгебраическая логика комплексных чисел для профилей крыльев по теореме Жуковского
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -41,23 +43,25 @@ void CreateDisplay(int sizeX, int sizeY)
     }
 }
 
-ComplexNumber DivideComplexNumber(ComplexNumber First, ComplexNumber Second)
-{
-    double denominator = Second.GetRe() * Second.GetRe() + Second.GetIm() * Second.GetIm();
-    double realResult = (First.GetRe() * Second.GetRe() + First.GetIm() * Second.GetIm()) / denominator;
-    double imagResult = (First.GetIm() * Second.GetRe() - First.GetRe() * Second.GetIm()) / denominator;
-
-    ComplexNumber result(realResult, imagResult);
-
-    return result;
-}
-
 ComplexNumber MultiplexComplexNumber(ComplexNumber First, ComplexNumber Second)
 {
     double realPart = First.GetRe() * Second.GetRe() - First.GetIm() * Second.GetIm();
     double imPart = First.GetRe() * Second.GetIm() + Second.GetRe() * First.GetIm();
 
     ComplexNumber result(realPart, imPart);
+
+    return result;
+}
+
+ComplexNumber DivideComplexNumber(ComplexNumber First, ComplexNumber Second)
+{
+    ComplexNumber SoprWithSecond(Second.GetRe(), -1 * Second.GetIm());
+    ComplexNumber MultFirst(MultiplexComplexNumber(First, SoprWithSecond));
+    ComplexNumber MultSecond(MultiplexComplexNumber(Second, SoprWithSecond));
+    double SumMultSecond = MultSecond.GetRe() + MultSecond.GetIm();
+
+    ComplexNumber End(1 / SumMultSecond, 0);
+    ComplexNumber result(MultiplexComplexNumber(MultFirst, End));
 
     return result;
 }
