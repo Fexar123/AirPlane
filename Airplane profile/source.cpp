@@ -66,17 +66,29 @@ ComplexNumber DivideComplexNumber(ComplexNumber First, ComplexNumber Second)
     return result;
 }
 
-int main()
+ComplexNumber addition(ComplexNumber First, ComplexNumber Second)
 {
-
-    ComplexNumber First(1, 0);
-    ComplexNumber Second(3, 2);
-
-    ComplexNumber Divide_Result = DivideComplexNumber(First, Second);
-
-    ComplexNumber End_Result = MultiplexComplexNumber(Second, Divide_Result);
-
-    cout << End_Result.GetRe();
-
-    return 0;
+    ComplexNumber result(First.GetRe() + Second.GetRe(), First.GetIm() + Second.GetIm());
+    return result;
 }
+
+ComplexNumber  substraction(ComplexNumber First, ComplexNumber Second)
+{
+    ComplexNumber result(First.GetRe() - Second.GetRe(), First.GetIm() - Second.GetIm());
+    return result;
+}
+
+
+        int main()
+    {
+
+        ComplexNumber First(1, 0);
+        ComplexNumber Second(3, 2);
+
+
+        ComplexNumber End_Result = substraction(Second, First);
+
+        cout << End_Result.GetRe() << endl;
+        cout << End_Result.GetIm();
+        return 0;
+    }
